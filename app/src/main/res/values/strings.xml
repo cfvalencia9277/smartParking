@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Smart Parking</string>
+    <string name="cedulas">000000,1234532,123456</string>
+    <string name="disponible">Disponible</string>
+    <string name="ocupado">Ocupado</string>
+    <string name="dosdedos">2 de 2</string>
+    <string name="unodedos">1 de 2</string>
+    <string name="cerodedos">0 de 2</string>
+    <string name="id_parqueadero1">5e49836d0ff4c310d34c1bff</string>
+    <string name="id_parqueadero2">5e4987ce1d84720c7a36e18a</string>
+    <string name="default_token">BBFF-x3TKYUqOTPqMbhURLtsY0rDz8jibHs</string>
+</resources>
