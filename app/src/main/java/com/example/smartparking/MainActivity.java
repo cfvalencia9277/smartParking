@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,31 +29,19 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish(){
                 //set the new Content of your activity
                 MainActivity.this.setContentView(R.layout.login_activity);
-                setUtilsFromView();
+                boton_validar=(Button) findViewById(R.id.boton_validar);
+                cedula = (EditText) findViewById(R.id.entrada_cedula);
 
                 boton_validar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String entry = cedula.getText().toString();
-                        if(getString(R.string.cedulas).contains(entry)){
+                        if(!getString(R.string.cedulas).contains(entry) || entry.equals("")){
+                            cedula.setText("");
+                            Toast.makeText(getApplicationContext(),"Cedula no coincide intente de nuevo", Toast.LENGTH_LONG).show();
+                        }else {
                             Intent myIntent = new Intent(MainActivity.this, Process_activity.class);
                             MainActivity.this.startActivity(myIntent);
-                        }else {
-                            cedula.clearComposingText();
-
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
-                            builder1.setMessage("Cedula no coincide intente de nuevo");
-                            builder1.setCancelable(false);
-                            builder1.setPositiveButton(
-                                    "Ok",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-
-                            AlertDialog alert11 = builder1.create();
-                            alert11.show();
                         }
                     }
                 });
@@ -60,8 +49,4 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void setUtilsFromView(){
-        boton_validar=(Button) findViewById(R.id.boton_validar);
-        cedula = (EditText) findViewById(R.id.entrada_cedula);
-    }
 }
