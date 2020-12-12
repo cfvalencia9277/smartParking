@@ -51,10 +51,10 @@ public class Process_activity extends AppCompatActivity {
                                 timepo_actualizado.setText("Actualizado: "+Date.from(Instant.now()).toString());
                                 if(person.value.equals("0")){
                                     estado_parqueadero1.setText(R.string.disponible);
-                                    determineTotalParkingsAvailable((String) total_libres.getText(),false);
+                                    total_libres.setText(determineTotalParkingsAvailable(getString(R.string.disponible), String.valueOf(estado_parqueadero2.getText())));
                                 }else{
                                     estado_parqueadero1.setText(R.string.ocupado);
-                                    determineTotalParkingsAvailable((String) total_libres.getText(),true);
+                                    total_libres.setText(determineTotalParkingsAvailable(getString(R.string.ocupado), String.valueOf(estado_parqueadero2.getText())));
                                 }
                             }
 
@@ -74,10 +74,10 @@ public class Process_activity extends AppCompatActivity {
                             public void onSuccess(LastValue person) {
                                 if(person.value.equals("0")){
                                     estado_parqueadero2.setText(R.string.disponible);
-                                    determineTotalParkingsAvailable((String) total_libres.getText(),false);
+                                    total_libres.setText(determineTotalParkingsAvailable(String.valueOf(estado_parqueadero1.getText()),getString(R.string.disponible)));
                                 }else{
                                     estado_parqueadero2.setText(R.string.ocupado);
-                                    determineTotalParkingsAvailable((String) total_libres.getText(),true);
+                                    total_libres.setText(determineTotalParkingsAvailable(String.valueOf(estado_parqueadero1.getText()),getString(R.string.ocupado)));
                                 }
                             }
 
@@ -93,27 +93,18 @@ public class Process_activity extends AppCompatActivity {
         });
     }
 
-    private String determineTotalParkingsAvailable(String currentValue, boolean isAdd){
-        if(currentValue.equals(getString(R.string.cerodedos))){
-            if(isAdd){
-                return getString(R.string.cerodedos);
-            }else{
-                return getString(R.string.unodedos);
-            }
+    private String determineTotalParkingsAvailable(String estadoP1, String estadoP2){
+        if(estadoP1.equals(getString(R.string.ocupado)) && estadoP2.equals(getString(R.string.ocupado))){
+            return getString(R.string.cerodedos);
         }
-        else if(currentValue.equals(getString(R.string.unodedos))){
-            if(isAdd){
-                return getString(R.string.cerodedos);
-            }else{
-                return getString(R.string.dosdedos);
-            }
+        else if(estadoP1.equals(getString(R.string.disponible)) && estadoP2.equals(getString(R.string.ocupado))){
+            return getString(R.string.unodedos);
         }
-        else if(currentValue.equals(getString(R.string.dosdedos))){
-            if(isAdd){
-                return getString(R.string.unodedos);
-            }else{
-                return getString(R.string.dosdedos);
-            }
+        else if(estadoP1.equals(getString(R.string.disponible)) && estadoP2.equals(getString(R.string.disponible))){
+            return getString(R.string.dosdedos);
+        }
+        else if(estadoP1.equals(getString(R.string.ocupado)) && estadoP2.equals(getString(R.string.disponible))){
+            return getString(R.string.unodedos);
         }
         else {
             return getString(R.string.dosdedos);
